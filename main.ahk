@@ -88,7 +88,7 @@ Goto, end_hotkey
 IniRead, RMA_USER, %INI_FILE%, RMA, username, NONE_VALUE
 if RMA_USER = NONE_VALUE
 {
-  InputBox RMA_USER, New RMA user, Enter RMA username
+  InputBox RMA_USER, New RMA user, Enter WIP Tracking username
   IniWrite %RMA_USER%, %INI_FILE%, RMA, username
   if ErrorLevel
   {
@@ -99,7 +99,7 @@ if RMA_USER = NONE_VALUE
 IniRead, RMA_PASS, %INI_FILE%, RMA, password, NONE_VALUE
 if RMA_PASS = NONE_VALUE
 {
-  InputBox RMA_PASS, New RMA user, Enter RMA password, HIDE
+  InputBox RMA_PASS, New RMA user, Enter WIP Tracking password, HIDE
   IniWrite %RMA_PASS%, %INI_FILE%, RMA, password
   if ErrorLevel
   {
@@ -110,7 +110,7 @@ if RMA_PASS = NONE_VALUE
 IniRead, RMA_MENU, %INI_FILE%, RMA, menu, NONE_VALUE
 if RMA_MENU = NONE_VALUE
 {
-  InputBox RMA_MENU, New RMA user, Enter the depth of the RMA Process menu numbers 4 or 5)
+  InputBox RMA_MENU, New RMA user, Enter the location of the RMA Process menu in your WIP Tracking (numbers 3 or 4 or 5) - see: www.github.com/JimboMahoney/RoW-Andorian-Hotkeys/issues/1 , ,600
   IniWrite %RMA_MENU%, %INI_FILE%, RMA, menu
   if ErrorLevel
   {
