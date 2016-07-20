@@ -1,33 +1,34 @@
 ; Name all function variables with leading underscore
 ; to avoid local variable error messages
+; Edited by Philip McIlwrath 19-Jul-2016
 
-_unminimize_saleslogix_window()
+_unminimize_Saleslogix_window()
 {
-    ; Returns 1 if SalesLogix window exists and is unminimized or 0 if
+    ; Returns 1 if Saleslogix window exists and is unminimized or 0 if
     ; the window does not exist.
 
-    ; When SalesLogix is minimized, it's title is "SalesLogix" and
-    ; when it's restored it's title is "Sage SalesLogix -".
-    WinGet,_min_max,MinMax,SalesLogix
+    ; When Saleslogix is minimized, it's title is "Saleslogix" and
+    ; when it's restored it's title is "Sage Saleslogix -".
+    WinGet,_min_max,MinMax,Saleslogix
     SetTitleMatchMode, RegEx
     If _min_max = -1
     {
-        WinRestore,SalesLogix
+        WinRestore,Saleslogix
 	; WinRestore doesn't block execution until Window is
 	; restored, so we have to delay till retore happens manually.
-	WinGet,_min_max,MinMax,Sage SalesLogix,,(Server)|(Client)
+	WinGet,_min_max,MinMax,Sage Saleslogix,,(Server)|(Client)
 	Return 1
     }
-    WinGet,_min_max,MinMax,Sage SalesLogix,,(Server)|(Client)
+    WinGet,_min_max,MinMax,Saleslogix,,(Server)|(Client)
     If _min_max =
     {
-        MsgBox, Error: No SalesLogix window found.  Is it open?
+        MsgBox, Error: No Saleslogix window found.  Is it open- ?
         Return 0
     }
     Return 1
 }
 
-_ignore_saleslogix_refresh()
+_ignore_Saleslogix_refresh()
 {
     ; Allows refresh from the Modal Window prompt:
     ;
@@ -55,45 +56,45 @@ _ignore_saleslogix_refresh()
 	; Wait for the menu bar to reappear
 	SetTitleMatchMode, 1
 	SetTitleMatchMode, Fast
-	WinWait,Sage SalesLogix -,,5
+	WinWait,Sage Saleslogix -,,5
 	WinActivate
 	WinMenuSelectItem,,,Edit,Copy Link to Clipboard
         while ( ErrorLevel &&  _counter > 0 )
         {
             _counter--
-	    WinWait,Sage SalesLogix -,,5
+	    WinWait,Sage Saleslogix -,,5
 	    WinActivate
 	    WinMenuSelectItem,,,Edit,Copy Link to Clipboard
 	    Sleep,2000
         }
-        Progress,,Opening ticket in SalesLogix
+        Progress,,Opening ticket in Saleslogix
     }
 }
 
 
-_get_saleslogix_window()
+_get_Saleslogix_window()
 {
-    ; Returns 1 if SalesLogix window exists and is ready to accept
+    ; Returns 1 if Saleslogix window exists and is ready to accept
     ; keyboard input; otherwise returns 0.
 
     ; Hack to close annoying Personal Web Server window, which due to
     ; it's name steals focus from other SLX windows.
-    WinClose,Sage SalesLogix Personal Web Server
+    WinClose,Sage Saleslogix Personal Web Server
 
-    If ! _unminimize_saleslogix_window()
+    If ! _unminimize_Saleslogix_window()
       Return 0
     SetTitleMatchMode, RegEx
-    WinWait,SalesLogix,,10,(Server)|(Client)
+    WinWait,Saleslogix,,10,(Server)|(Client)
     if ErrorLevel
       Return 0
     WinActivate
-    _ignore_saleslogix_refresh()
+    _ignore_Saleslogix_refresh()
     Return 1
 }
 
 open_systemticket()
 {
-    If !_get_saleslogix_window()
+    If !_get_Saleslogix_window()
       return
     WinMenuSelectItem,,,Lookup,Tickets,Advanced Lookup
 	SetKeyDelay, -1
@@ -129,7 +130,7 @@ open_systemticket()
 
 open_ticket(_ticket)
 {
-    If !_get_saleslogix_window()
+    If !_get_Saleslogix_window()
       return
     WinMenuSelectItem,,,Lookup,Tickets,Ticket ID
     SetKeyDelay, -1
@@ -145,7 +146,7 @@ open_ticket(_ticket)
 
 open_contact_by_email(_email)
 {
-    If !_get_saleslogix_window()
+    If !_get_Saleslogix_window()
       return
     WinMenuSelectItem,,,Lookup,Contacts,E-mail
     Send %_email%{tab}{enter}
@@ -162,7 +163,7 @@ _open_group(_category, _name, _action:="enter")
     ; Choose group results from group manager.  If "_action" is set to
     ; "edit", it opens the Query Builder, otherwise 
 
-    If !_get_saleslogix_window()
+    If !_get_Saleslogix_window()
       Return 0
     ; Workaround for SLX bug: "Edit" button in Group Manager is
     ; disabled when no group windows are open.
@@ -172,7 +173,7 @@ _open_group(_category, _name, _action:="enter")
       global SetTitleMatchMode
       SetTitleMatchMode, 1
       SetTitleMatchMode, Fast
-      WinWait,Sage SalesLogix - [Ticket:,,5
+      WinWait,Sage Saleslogix - [Ticket:,,5
     }
     WinMenuSelectItem,,,View,Groups
     Send %_category%{right}%_name%
