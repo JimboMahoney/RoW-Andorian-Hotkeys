@@ -223,7 +223,7 @@ Goto, end_hotkey_with_error
   ; there's no native function to parse several regex matches, so one has to
   ; reuse the `begin` position parameter to check the full string
   begin = 1
-  While begin := RegExMatch(clipboard, "(((CN\d{6})|([M]?\d{6,7})|(u\d{5,6})|(R\d{5})|(DS\d{4,5})|(D\d{4,5})|(X\d{4,5}))[\/]?\d?)"
+  While begin := RegExMatch(clipboard, "(((CN\d{6})|([M]?\d{6,7})|([m]?\d{6,7})|(u\d{5,6})|(R\d{5})|(DS\d{4,5})|(D\d{4,5})|(X\d{4,5}))[\/]?\d?)"
                             , match
                             , begin + StrLen(match))
   {

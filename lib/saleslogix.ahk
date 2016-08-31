@@ -105,17 +105,17 @@ open_systemticket()
     Send {tab}
 	Send %clipboard%
 	Sleep 500
-	SetKeyDelay, 10
+	SetKeyDelay, 50
 	Send {tab}{tab}{tab}
 	SetKeyDelay, -1
 	Send SERVICE
 	Sleep 100
-	SetKeyDelay, 10
+	SetKeyDelay, 20
 	Send {tab}
 	SetKeyDelay, -1
 	Send CONFOCAL
 	Sleep 100
-	SetKeyDelay, 10
+	SetKeyDelay, 20
 	Send {tab}
 	SetKeyDelay, -1
 	Send INSTALLATION
